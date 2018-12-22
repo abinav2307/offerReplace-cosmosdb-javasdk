@@ -1,19 +1,29 @@
 package com.cosmosdb.ninjas.offerReplace.syncImplementation;
 
+import java.io.InputStream;
 import java.util.Iterator;
+import java.util.Properties;
 
-import com.microsoft.azure.documentdb.Offer;
 import com.cosmosdb.ninjas.offerReplace.bootup.CosmosDBBootupManager;
+import com.cosmosdb.ninjas.offerReplace.main.Main;
 import com.microsoft.azure.documentdb.DocumentClient;
+import com.microsoft.azure.documentdb.Offer;
 
 public class OfferReplaceImplSync {
     
-    public void executeOfferReplace(int newOfferThroughputToSet) throws Exception {
+    public void executeOfferReplace() throws Exception {
         
-        String accountName = "abinav-bulkexecutor-splitproof";
-        String accountKey = "xMZFG3s4OiGbkINCzqmvxczthvymnbWy8VOifbY9zVSi1DvzgNggX5XpizV1yTlyHbFOjDPCOOHyMo86IvW9JA==";
-        String databaseName = "SplitProofDB";
-        String collectionName = "UpdateSplitProofV1";
+        // Load account details from config.properties
+        Properties settings = new Properties();
+        InputStream propertiesInputStream =
+            Main.class.getClassLoader().getResourceAsStream("config.properties");
+        settings.load(propertiesInputStream);
+        
+        String accountName = settings.getProperty("cosmosDbAccountName");
+        String accountKey = settings.getProperty("cosmosDbAccountKey");
+        String databaseName = settings.getProperty("cosmosDbDatabaseName");
+        String collectionName = settings.getProperty("cosmosDbCollectionName");
+        int newOfferThroughputToSet = Integer.parseInt(settings.getProperty("newOfferThroughputToSet"));
         
         // Fetch the DocumentClient
         DocumentClient client = CosmosDBBootupManager.bootup(accountName, accountKey);
