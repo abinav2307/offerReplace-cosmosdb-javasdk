@@ -14,6 +14,11 @@ public class OfferReplaceImplAsync {
 
     private static Integer currentOfferThroughput;
     
+    /**
+     * Executes a read and replace on the throughput of the specified collection
+     * 
+     * @throws Exception
+     */
     public void executeOfferReadAndReplace() throws Exception {
     
         // Load account details from config.properties
@@ -64,7 +69,7 @@ public class OfferReplaceImplAsync {
             null).subscribe(offerResourceResponse -> {
                 
                 Offer offer = offerResourceResponse.getResults().get(0);
-                currentOfferThroughput = offer.getContent().getInt("offerThroughput");
+                currentOfferThroughput = offer.getThroughput();
                 
                 successfulCompletionLatch.countDown();
             }, error -> {
@@ -102,7 +107,7 @@ public class OfferReplaceImplAsync {
                 Offer offer = offerList.get(0);
                 
                 // Update the collection's throughput
-                offer.getContent().put("offerThroughput", newOfferThroughputToSet);
+                offer.setThroughput(newOfferThroughputToSet);
 
                 // Replace the offer
                 return client.replaceOffer(offer);

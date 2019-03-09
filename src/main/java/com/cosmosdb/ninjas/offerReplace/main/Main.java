@@ -3,6 +3,8 @@ package com.cosmosdb.ninjas.offerReplace.main;
 import com.cosmosdb.ninjas.offerReplace.asyncImplementation.OfferReplaceImplAsync;
 import com.cosmosdb.ninjas.offerReplace.sharedThoroughput.syncImplementation.DatabaseOfferReplace;
 import com.cosmosdb.ninjas.offerReplace.syncImplementation.OfferReplaceImplSync;
+import com.cosmosdb.ninjas.query.asyncImplementation.QueryAsyncSamples;
+import com.cosmosdb.ninjas.query.syncImplementation.QuerySyncSamples;
 
 public class Main {
     
@@ -20,5 +22,13 @@ public class Main {
         DatabaseOfferReplace databaseLevelSyncImplementation = new DatabaseOfferReplace();
         databaseLevelSyncImplementation.createSharedThroughputDatabase();
         databaseLevelSyncImplementation.executeOfferReplace();
+        
+        // Java Async SDK implementation of a query with an IN clause
+        QueryAsyncSamples queryAsyncSamples = new QueryAsyncSamples();
+        queryAsyncSamples.executeQueryWithInClause();
+        
+        // Java Sync SDK implementation of a query with an IN clause
+        QuerySyncSamples querySyncSamples = new QuerySyncSamples();
+        querySyncSamples.executeQueryWithInClause();
     }
 }
