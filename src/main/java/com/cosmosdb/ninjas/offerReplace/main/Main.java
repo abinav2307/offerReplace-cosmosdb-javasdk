@@ -3,6 +3,8 @@ package com.cosmosdb.ninjas.offerReplace.main;
 import com.cosmosdb.ninjas.offerReplace.asyncImplementation.OfferReplaceImplAsync;
 import com.cosmosdb.ninjas.offerReplace.sharedThoroughput.syncImplementation.DatabaseOfferReplace;
 import com.cosmosdb.ninjas.offerReplace.syncImplementation.OfferReplaceImplSync;
+import com.cosmosdb.ninjas.optimisticConcurrency.asyncImplementation.OptimisticConcurrencyAsync;
+import com.cosmosdb.ninjas.optimisticConcurrency.syncImplementation.OptimisticConcurrencySync;
 import com.cosmosdb.ninjas.query.asyncImplementation.QueryAsyncSamples;
 import com.cosmosdb.ninjas.query.syncImplementation.QuerySyncSamples;
 
@@ -30,5 +32,11 @@ public class Main {
         // Java Sync SDK implementation of a query with an IN clause
         QuerySyncSamples querySyncSamples = new QuerySyncSamples();
         querySyncSamples.executeQueryWithInClause();
+        
+        OptimisticConcurrencySync optimisticConcurrencySync = new OptimisticConcurrencySync();
+        optimisticConcurrencySync.executeReplaceWithOCC();
+        
+        OptimisticConcurrencyAsync optimisticConcurrencyAsync = new OptimisticConcurrencyAsync();
+        optimisticConcurrencyAsync.executeReplaceWithOCC();
     }
 }
